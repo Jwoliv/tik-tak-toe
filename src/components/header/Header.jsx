@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import logo from './img/logo.svg'
-import avatar from './img/avatar.png'
-import arrow from './img/arrow.svg'
+import { ProfileBlock } from '@/shared/components'
 
 const Header = () => {
     const sizeAvatar = 48
@@ -18,12 +17,7 @@ const Header = () => {
                 </button>
             </div>
             <button className="mi-auto flex items-center text-left gap-2">
-                <Image src={avatar} alt="Error uploading avatar" width={sizeAvatar} height={sizeAvatar} unoptimized />
-                <div>
-                    <h2 className="text-teal-600 text-lg hover:text-teal-500 transition-all">Username</h2>
-                    <h3 className="text-xs">Rating: 1230</h3>
-                </div>
-                <Image src={arrow} alt="Error uploading arrow" />
+                <ProfileBlock />
             </button>
         </header>
     )
