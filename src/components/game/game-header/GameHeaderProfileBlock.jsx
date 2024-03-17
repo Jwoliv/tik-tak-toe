@@ -1,4 +1,4 @@
-import { GameHeaderTimerBlock, GameHeaderProfileItem } from '.'
+import { GameHeaderTimerBlock, GameHeaderProfileItem } from '..'
 import cross from './img/cross-icon.svg'
 import zero from './img/zero-icon.svg'
 

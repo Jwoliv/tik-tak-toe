@@ -1,4 +1,4 @@
-import { GameHeaderTimer } from '.'
+import { GameHeaderTimer } from '..'
 
 const GameHeaderTimerBlock = () => {
     return (
