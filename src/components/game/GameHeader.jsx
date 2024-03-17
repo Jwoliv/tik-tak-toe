@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { ArrowToLeft, Star, PersonIcon, WatchTimeIcon } from './icons'
-import GameProfileBlock from './GameProfileBlock'
+import GameHeaderProfileBlock from './GameHeaderProfileBlock'
 
 const GameHeader = () => {
     return (
@@ -15,7 +15,7 @@ const GameHeader = () => {
                 <PersonIcon />
                 <WatchTimeIcon />
             </div>
-            <GameProfileBlock />
+            <GameHeaderProfileBlock />
         </div>
     )
 }
