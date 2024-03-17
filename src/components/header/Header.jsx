@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import logo from './img/logo.svg'
 import { ProfileBlock } from '@/shared/components'
+import arrow from './img/arrow.svg'
 
 const Header = () => {
     const sizeAvatar = 48
@@ -18,6 +19,7 @@ const Header = () => {
             </div>
             <button className="mi-auto flex items-center text-left gap-2">
                 <ProfileBlock />
+                <Image src={arrow} alt="Error uploading arrow" />
             </button>
         </header>
     )

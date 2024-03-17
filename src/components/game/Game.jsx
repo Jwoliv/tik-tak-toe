@@ -1,4 +1,4 @@
-const { default: GameHeader } = require('./GameHeader')
+import { GameHeader } from '.'
 
 const Game = () => {
     return (
