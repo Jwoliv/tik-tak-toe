@@ -1,2 +1,2 @@
 export { default as ProfileBlock } from './ProfileBlock'
-export { default as UserStepIcon } from './UserStepIcon'
+export { default as UserStepIcon } from '../icons/UserStepIcon'

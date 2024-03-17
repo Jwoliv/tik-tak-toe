@@ -1,5 +1,5 @@
 export { default as Game } from './Game'
-export { default as GameBoard } from "./game-board/GameBoard"
+export { default as GameBoard } from './game-board/GameBoard'
 export { default as GameHeader } from './game-header/GameHeader'
 export { default as GameProfileBlock } from './game-header/GameHeaderProfileBlock'
 export { default as GameHeaderTimer } from './game-header/GameHeaderTimer'
