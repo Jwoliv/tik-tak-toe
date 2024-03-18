@@ -32,7 +32,9 @@ const GameBoard = () => {
             </div>
             <div className="grid grid-cols-[repeat(19,_30px)] grid-rows-[repeat(19,_30px)] pt-px pl-px mt-4">
                 {cells.map((__, index) => (
-                    <button key={index} className="border border-stale-200 -ml-px -mt-px"></button>
+                    <button key={index} className="border border-stale-200 -ml-px -mt-px flex items-center justify-center">
+                        <UserStepIcon icon={currentProgress} style="shadow-none" />
+                    </button>
                 ))}
             </div>
         </div>
