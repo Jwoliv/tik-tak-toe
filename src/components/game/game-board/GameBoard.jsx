@@ -16,10 +16,10 @@ const GameBoard = () => {
             <div className="mt-6 p-3 flex justify-between items-center shadow-lg rounded-md">
                 <div>
                     <h4 className="text-teal-900 text-xl flex items-center gap-2">
-                        Current progress: <UserStepIcon icon={currentProgress} style="shadow-none" />
+                        Current progress: <UserStepIcon icon={currentProgress} width={9} style="shadow-none" />
                     </h4>
                     <h4 className="text-gray-400 text-2xs flex items-center gap-2">
-                        Next: <UserStepIcon icon={nextProgress} style="shadow-none" />
+                        Next: <UserStepIcon icon={nextProgress} width={9} style="shadow-none" />
                     </h4>
                 </div>
                 <div className="flex gap-2">
@@ -33,7 +33,7 @@ const GameBoard = () => {
             <div className="grid grid-cols-[repeat(19,_30px)] grid-rows-[repeat(19,_30px)] pt-px pl-px mt-4">
                 {cells.map((__, index) => (
                     <button key={index} className="border border-stale-200 -ml-px -mt-px flex items-center justify-center">
-                        <UserStepIcon icon={currentProgress} style="shadow-none" />
+                        <UserStepIcon icon={currentProgress} style="shadow-none" width={20} />
                     </button>
                 ))}
             </div>
