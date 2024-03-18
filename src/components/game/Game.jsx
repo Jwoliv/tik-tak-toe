@@ -2,7 +2,7 @@ import { GameHeader, GameBoard } from '.'
 
 const Game = () => {
     return (
-        <div className="pt-6 mx-auto max-w-[616px]">
+        <div className="pt-6 mx-auto w-max">
             <GameHeader />
             <GameBoard />
         </div>

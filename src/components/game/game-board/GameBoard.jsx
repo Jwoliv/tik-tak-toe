@@ -8,9 +8,12 @@ const GameBoard = () => {
     const [currentProgress, setCurrentProgress] = useState(cross)
     const [nextProgress, setNextProgress] = useState(zero)
 
+    const sizeBoard = 19
+    const cells = new Array(sizeBoard * sizeBoard).fill(null)
+
     return (
         <div>
-            <div className="mt-3 flex justify-between items-center">
+            <div className="mt-6 p-3 flex justify-between items-center shadow-lg rounded-md">
                 <div>
                     <h4 className="text-teal-900 text-xl flex items-center gap-2">
                         Current progress: <UserStepIcon icon={currentProgress} style="shadow-none" />
@@ -20,12 +23,17 @@ const GameBoard = () => {
                     </h4>
                 </div>
                 <div className="flex gap-2">
-                    <GameBoardButton text="Draw" style="bg-teal-600 text-white hover:bg-teal-500 transition-all" />
+                    <GameBoardButton text="Draw" className="bg-teal-600 text-white hover:bg-teal-500 transition-all" />
                     <GameBoardButton
                         text="Give up"
-                        style="bg-white text-teal-600 border rounded-md border-teal-600 hover:text-white hover:bg-teal-600 transition-all"
+                        className="bg-white text-teal-600 border rounded-md border-teal-600 hover:text-white hover:bg-teal-600 transition-all"
                     />
                 </div>
+            </div>
+            <div className="grid grid-cols-[repeat(19,_30px)] grid-rows-[repeat(19,_30px)] pt-px pl-px mt-4">
+                {cells.map((__, index) => (
+                    <button key={index} className="border border-stale-200 -ml-px -mt-px"></button>
+                ))}
             </div>
         </div>
     )
