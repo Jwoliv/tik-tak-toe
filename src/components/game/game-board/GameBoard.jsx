@@ -1,40 +1,45 @@
 import { useState } from 'react'
-import GameBoardButton from './GameBoardButton'
-import cross from './img/cross-icon.svg'
-import zero from './img/zero-icon.svg'
-import { UserStepIcon } from '@/shared/components'
+import GameHeaderBoard from './GameHeaderBoard'
+import GameBoardSymbol from './GameBoardSymbol'
+import { GAME_SYMBOLS, MOVE_ORDER, ICONS_PROGRESS } from './constants'
+import emptyField from './img/empty-field.svg'
+
+const getNextProgress = (currentProgress) => {
+    let nextIndex = MOVE_ORDER.indexOf(currentProgress) + 1
+    return MOVE_ORDER[nextIndex] ?? MOVE_ORDER[0]
+}
 
 const GameBoard = () => {
-    const [currentProgress, setCurrentProgress] = useState(cross)
-    const [nextProgress, setNextProgress] = useState(zero)
+    const [gameState, setGameState] = useState(() => ({
+        cells: new Array(19 * 19).fill(null),
+        currentProgress: GAME_SYMBOLS.CROSS,
+    }))
 
-    const sizeBoard = 19
-    const cells = new Array(sizeBoard * sizeBoard).fill(null)
+    const nextProgress = getNextProgress(gameState.currentProgress)
+
+    const clickOnCell = (index) => {
+        setGameState((lastGameState) => ({
+            ...lastGameState,
+            cells:
+                lastGameState.cells[index] === null
+                    ? lastGameState.cells.map((cell, idx) => (idx === index ? ICONS_PROGRESS[lastGameState.currentProgress] : cell))
+                    : lastGameState.cells,
+            currentProgress: getNextProgress(lastGameState.currentProgress),
+        }))
+    }
 
     return (
         <div>
-            <div className="mt-6 p-3 flex justify-between items-center shadow-lg rounded-md">
-                <div>
-                    <h4 className="text-teal-900 text-xl flex items-center gap-2">
-                        Current progress: <UserStepIcon icon={currentProgress} width={9} style="shadow-none" />
-                    </h4>
-                    <h4 className="text-gray-400 text-2xs flex items-center gap-2">
-                        Next: <UserStepIcon icon={nextProgress} width={9} style="shadow-none" />
-                    </h4>
-                </div>
-                <div className="flex gap-2">
-                    <GameBoardButton text="Draw" className="bg-teal-600 text-white hover:bg-teal-500 transition-all" />
-                    <GameBoardButton
-                        text="Give up"
-                        className="bg-white text-teal-600 border rounded-md border-teal-600 hover:text-white hover:bg-teal-600 transition-all"
-                    />
-                </div>
-            </div>
+            <GameHeaderBoard currentProgress={ICONS_PROGRESS[gameState.currentProgress]} nextProgress={ICONS_PROGRESS[nextProgress]} />
             <div className="grid grid-cols-[repeat(19,_30px)] grid-rows-[repeat(19,_30px)] pt-px pl-px mt-4">
-                {cells.map((__, index) => (
-                    <button key={index} className="border border-stale-200 -ml-px -mt-px flex items-center justify-center">
-                        <UserStepIcon icon={currentProgress} style="shadow-none" width={20} />
-                    </button>
+                {gameState.cells.map((symbol, index) => (
+                    <GameBoardSymbol
+                        className="shadow-none"
+                        width={20}
+                        key={index}
+                        icon={symbol}
+                        onClick={() => clickOnCell(index)}
+                    ></GameBoardSymbol>
                 ))}
             </div>
         </div>
