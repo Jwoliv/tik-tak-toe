@@ -9,7 +9,7 @@ const ProfileBlock = ({ player }) => {
     }
 
     return (
-        <div className="flex gap-2">
+        <div className="flex mb-3 gap-2">
             <Image src={avatar} alt="Error uploading avatar" width={sizeAvatar} height={sizeAvatar} unoptimized />
             <div>
                 <h2 className="text-teal-600 text-lg hover:text-teal-500 transition-all">{getUsername(player.username)}</h2>

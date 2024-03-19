@@ -1,6 +1,5 @@
-import { GameHeaderTimerBlock, GameHeaderProfileItem } from '..'
-import GameHeaderProfileRow from './GameHeaderProfileRow'
 import { ICONS_PROGRESS } from '../game-board/constants'
+import { GameHeaderProfileItem } from '..'
 
 const GameHeaderProfileBlock = () => {
     const players = [
@@ -27,9 +26,12 @@ const GameHeaderProfileBlock = () => {
     ]
 
     return (
-        <div>
-            <GameHeaderProfileRow players={players.slice(0, 2)} />
-            <GameHeaderProfileRow players={players.slice(2)} />
+        <div className="grid grid-cols-2">
+            {players.map((player, index) => (
+                <div key={index}>
+                    <GameHeaderProfileItem player={player} index={index} isRight={index % 2 === 0} />
+                </div>
+            ))}
         </div>
     )
 }

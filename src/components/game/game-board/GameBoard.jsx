@@ -19,15 +19,19 @@ const GameBoard = () => {
     const clickOnCell = (index) => {
         setGameState((lastGameState) => ({
             ...lastGameState,
-            cells: getCells(lastGameState, index),
-            currentProgress: getNextProgress(lastGameState.currentProgress),
+            cells: updateCells(lastGameState, index),
+            currentProgress: updateCurrentProgress(lastGameState, index),
         }))
     }
 
-    const getCells = (lastGameState, index) => {
+    const updateCells = (lastGameState, index) => {
         return lastGameState.cells[index] === null
             ? lastGameState.cells.map((cell, idx) => (idx === index ? ICONS_PROGRESS[lastGameState.currentProgress] : cell))
             : lastGameState.cells
+    }
+
+    const updateCurrentProgress = (lastGameState, index) => {
+        return lastGameState.cells[index] === null ? getNextProgress(lastGameState.currentProgress) : lastGameState.currentProgress
     }
 
     return (

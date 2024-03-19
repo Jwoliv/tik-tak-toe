@@ -1,10 +1,9 @@
 import { GameHeaderTimer } from '..'
 
-const GameHeaderTimerBlock = () => {
+const GameHeaderTimerBlock = ({ isPositionRight }) => {
     return (
         <div className="flex items-center gap-10">
-            <GameHeaderTimer isActive={false} />
-            <GameHeaderTimer isActive={true} />
+            <GameHeaderTimer isActive={false} isPositionRight={isPositionRight} />
         </div>
     )
 }
