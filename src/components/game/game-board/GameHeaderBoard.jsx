@@ -1,7 +1,5 @@
 import { UserStepIcon } from '../game-header/icons'
 import GameBoardButton from './GameBoardButton'
-import cross from './img/cross-icon.svg'
-import zero from './img/zero-icon.svg'
 
 const GameHeaderBoard = ({ currentProgress, nextProgress }) => {
     return (

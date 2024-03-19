@@ -14,7 +14,7 @@ export const ICONS_PROGRESS = {
     cross: cross,
     zero: zero,
     tringle: tringle,
-    square: square
+    square: square,
 }
 
 export const MOVE_ORDER = [GAME_SYMBOLS.CROSS, GAME_SYMBOLS.ZERO, GAME_SYMBOLS.TRINGLE, GAME_SYMBOLS.SQUARE]

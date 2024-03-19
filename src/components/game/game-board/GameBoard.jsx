@@ -2,7 +2,6 @@ import { useState } from 'react'
 import GameHeaderBoard from './GameHeaderBoard'
 import GameBoardSymbol from './GameBoardSymbol'
 import { GAME_SYMBOLS, MOVE_ORDER, ICONS_PROGRESS } from './constants'
-import emptyField from './img/empty-field.svg'
 
 const getNextProgress = (currentProgress) => {
     let nextIndex = MOVE_ORDER.indexOf(currentProgress) + 1
