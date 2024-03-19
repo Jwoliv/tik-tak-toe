@@ -1,10 +1,10 @@
 import { ProfileBlock, UserStepIcon } from '@/shared/components'
 
-const GameHeaderProfileItem = ({ icon, username, rating }) => {
+const GameHeaderProfileItem = ({ player }) => {
     return (
         <div className="relative">
-            <UserStepIcon style="absolute -left-1 -top-1" icon={icon} width={9} />
-            <ProfileBlock username={username} rating={rating} />
+            <UserStepIcon style="absolute -left-1 -top-1" icon={player.symbol} width={9} />
+            <ProfileBlock player={player} />
         </div>
     )
 }

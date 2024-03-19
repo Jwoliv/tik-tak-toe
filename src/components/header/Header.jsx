@@ -5,6 +5,7 @@ import arrow from './img/arrow.svg'
 
 const Header = () => {
     const sizeAvatar = 48
+    const mainPlayer = { username: 'Username ex', rating: 953 }
 
     return (
         <header className="flex justify-between h-24 items-center px-8 bg-white shadow-lg">
@@ -18,7 +19,7 @@ const Header = () => {
                 </button>
             </div>
             <button className="mi-auto flex items-center text-left gap-2">
-                <ProfileBlock />
+                <ProfileBlock player={mainPlayer} />
                 <Image src={arrow} alt="Error uploading arrow" />
             </button>
         </header>
