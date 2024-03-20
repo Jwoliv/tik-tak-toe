@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { ArrowToLeft, Star, PersonIcon, WatchTimeIcon } from './icons'
 import GameHeaderProfileBlock from './GameHeaderProfileBlock'
 
-const GameHeader = ({ playersCount }) => {
+const GameHeader = ({ playersCount, gameState }) => {
     return (
         <div>
             <Link href="#" class="flex gap-2 items-center text-xs">
@@ -15,7 +15,7 @@ const GameHeader = ({ playersCount }) => {
                 <PersonIcon playersCount={playersCount} />
                 <WatchTimeIcon />
             </div>
-            <GameHeaderProfileBlock playersCount={playersCount} />
+            <GameHeaderProfileBlock gameState={gameState} playersCount={playersCount} />
         </div>
     )
 }

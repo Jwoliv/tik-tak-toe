@@ -1,7 +1,7 @@
 import { ICONS_PROGRESS } from '../game-board/constants'
 import { GameHeaderProfileItem } from '..'
 
-const GameHeaderProfileBlock = ({ playersCount }) => {
+const GameHeaderProfileBlock = ({ playersCount, gameState }) => {
     const players = [
         {
             username: 'Username1',
@@ -29,7 +29,7 @@ const GameHeaderProfileBlock = ({ playersCount }) => {
         <div className="grid grid-cols-2">
             {players.slice(0, playersCount).map((player, index) => (
                 <div key={index}>
-                    <GameHeaderProfileItem player={player} index={index} isRight={index % 2 === 0} />
+                    <GameHeaderProfileItem gameState={gameState} player={player} index={index} isRight={index % 2 === 0} />
                 </div>
             ))}
         </div>
