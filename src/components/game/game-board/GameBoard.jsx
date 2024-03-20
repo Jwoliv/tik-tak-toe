@@ -1,20 +1,14 @@
-import { useState } from 'react'
 import GameHeaderBoard from './GameHeaderBoard'
 import GameBoardSymbol from './GameBoardSymbol'
-import { GAME_SYMBOLS, ICONS_PROGRESS, MOVE_ORDER } from './constants'
+import { ICONS_PROGRESS, MOVE_ORDER } from './constants'
 
-const GameBoard = ({ playersCount }) => {
+const GameBoard = ({ playersCount, gameState, setGameState }) => {
     const ORDER = MOVE_ORDER.slice(0, playersCount)
 
     const getNextProgress = (currentProgress) => {
         let nextIndex = ORDER.indexOf(currentProgress) + 1
         return ORDER[nextIndex] ?? ORDER[0]
     }
-
-    const [gameState, setGameState] = useState(() => ({
-        cells: new Array(19 * 19).fill(null),
-        currentProgress: GAME_SYMBOLS.CROSS,
-    }))
 
     const nextProgress = getNextProgress(gameState.currentProgress)
 

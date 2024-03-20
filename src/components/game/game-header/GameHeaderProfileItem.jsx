@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { TimerUtils } from '../../../utils' // Adjust the path accordingly
 import { ONE_MINUTE_IN_SECONDS } from '@/utils/constant'
 
-const GameHeaderProfileItem = ({ player, isRight }) => {
+const GameHeaderProfileItem = ({ player, isRight, isTimerNow }) => {
     const { getMinutes, getSeconds } = TimerUtils()
 
     const [seconds, setSeconds] = useState(ONE_MINUTE_IN_SECONDS)
@@ -17,11 +17,19 @@ const GameHeaderProfileItem = ({ player, isRight }) => {
     const isLowThan10Seconds = () => seconds < 10
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setSeconds((ls) => Math.max(ls - 1, 0))
-        }, 1000)
-        return () => clearInterval(interval)
-    }, [])
+        if (isTimerNow) {
+            const interval = setInterval(() => {
+                setSeconds((ls) => Math.max(ls - 1, 0))
+            }, 1000)
+            return () => clearInterval(interval)
+        }
+    }, [isTimerNow])
+
+    const getTimerColor = () => {
+        if (isLowThan10Seconds()) return 'text-red-500'
+        else if (isTimerNow) return 'text-green-500'
+        return 'text-teal-900'
+    }
 
     return (
         <div className="relative mt-3">
@@ -31,9 +39,7 @@ const GameHeaderProfileItem = ({ player, isRight }) => {
                     <ProfileBlock player={player} />
                 </div>
                 <div className="flex items-center gap-10">
-                    <h3 className={`text-xl ${isLowThan10Seconds() ? 'text-red-500' : 'text-teal-900'} ${isRight ? 'pr-2' : 'pl-3'}`}>
-                        {getFullTimerView()}
-                    </h3>
+                    <h3 className={`text-xl ${getTimerColor()} ${isRight ? 'pr-2' : 'pl-3'}`}>{getFullTimerView()}</h3>
                 </div>
             </div>
         </div>
