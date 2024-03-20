@@ -1,7 +1,6 @@
-// GameHeaderProfileItem.jsx
 import { ProfileBlock, UserStepIcon } from '@/shared/components'
 import { useEffect, useState } from 'react'
-import { TimerUtils } from '../../../utils' // Adjust the path accordingly
+import { TimerUtils } from '../../../utils'
 import { ONE_MINUTE_IN_SECONDS } from '@/utils/constant'
 
 const GameHeaderProfileItem = ({ player, isRight, isTimerNow }) => {
