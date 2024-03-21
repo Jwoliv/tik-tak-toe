@@ -1,7 +1,7 @@
 import GameHeaderBoard from './GameHeaderBoard'
 import GameBoardSymbol from './GameBoardSymbol'
 import { ICONS_PROGRESS, MOVE_ORDER } from './constants'
-import useWinnerCalculator from '../../../hook/useWinnerSituation'
+import useWinnerCalculator from '../../../service/WinnerService'
 
 const GameBoard = ({ playersCount, gameState, setGameState }) => {
     const ORDER = MOVE_ORDER.slice(0, playersCount)
@@ -45,6 +45,7 @@ const GameBoard = ({ playersCount, gameState, setGameState }) => {
                         key={index}
                         icon={symbol}
                         onClick={() => clickOnCell(index)}
+                        isWinnerPosition={winnerIndexes.includes(index)}
                     ></GameBoardSymbol>
                 ))}
             </div>

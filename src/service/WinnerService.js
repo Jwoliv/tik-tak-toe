@@ -11,7 +11,7 @@ const useWinnerCalculator = (gameState, sequenceSize = 5, fieldSize = 19) => {
                 }
             }
         }
-        return undefined
+        return []
     }
 
     function compareElements(cells, indexes) {
