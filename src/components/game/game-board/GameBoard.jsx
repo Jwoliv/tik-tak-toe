@@ -1,11 +1,11 @@
 import GameHeaderBoard from './GameHeaderBoard'
 import GameBoardSymbol from './GameBoardSymbol'
 import { ICONS_PROGRESS, MOVE_ORDER } from './constants'
-import useWinnerCalculator from '../../../service/WinnerService'
+import WinnerService from '../../../service/WinnerService'
 
 const GameBoard = ({ playersCount, gameState, setGameState }) => {
     const ORDER = MOVE_ORDER.slice(0, playersCount)
-    const computeWinner = useWinnerCalculator(gameState)
+    const computeWinner = WinnerService(gameState)
     const nextProgress = ICONS_PROGRESS[getNextProgress(gameState.currentProgress)]
     const winnerIndexes = computeWinner(gameState)
 
