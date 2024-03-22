@@ -1,13 +1,17 @@
 import GameHeaderBoard from './GameHeaderBoard'
 import GameBoardSymbol from './GameBoardSymbol'
+import GameWinnerBlock from './GameWinnerBlock'
 import { ICONS_PROGRESS, MOVE_ORDER } from './constants'
+import { useState } from 'react'
 
-const GameBoard = ({ playersCount, gameState, setGameState, winnerIndexes, isWinnerState }) => {
+const GameBoard = ({ playersCount, gameState, setGameState, winnerIndexes, isNotWinnerState, players }) => {
     const ORDER = MOVE_ORDER.slice(0, playersCount)
     const nextProgress = ICONS_PROGRESS[getNextProgress(gameState.currentProgress)]
+    const [prevProgress, setPrevProgress] = useState(ICONS_PROGRESS[0])
 
     function clickOnCell(index) {
-        if (isWinnerState) {
+        if (isNotWinnerState) {
+            setPrevProgress(gameState.currentProgress)
             setGameState((lastGameState) => ({
                 ...lastGameState,
                 cells: updateCells(lastGameState, index),
@@ -31,9 +35,11 @@ const GameBoard = ({ playersCount, gameState, setGameState, winnerIndexes, isWin
         return ORDER[nextIndex] ?? ORDER[0]
     }
 
+    const winnerUser = typeof players !== 'undefined' ? players.filter((x) => x.symbolName === prevProgress)[0] : {}
     return (
         <div>
             <GameHeaderBoard currentProgress={ICONS_PROGRESS[gameState.currentProgress]} nextProgress={nextProgress} />
+            <GameWinnerBlock isNotWinnerState={isNotWinnerState} prevProgress={prevProgress} winnerUser={winnerUser} />
             <div className="grid grid-cols-[repeat(19,_30px)] grid-rows-[repeat(19,_30px)] pt-px pl-px mt-4">
                 {gameState.cells.map((symbol, index) => (
                     <GameBoardSymbol
