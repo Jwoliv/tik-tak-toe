@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { GameHeader, GameBoard } from '.'
 import { GAME_SYMBOLS } from './game-board/constants'
+import WinnerService from '@/service/WinnerService'
 
 const Game = () => {
     const [playersCount, setPlayersCount] = useState(2)
@@ -9,10 +10,20 @@ const Game = () => {
         currentProgress: GAME_SYMBOLS.CROSS,
     }))
 
+    const computeWinner = WinnerService(gameState)
+    const winnerIndexes = computeWinner(gameState)
+    const isWinnerState = winnerIndexes.every((item) => item == -1)
+
     return (
         <div className="pt-6 mx-auto w-max">
-            <GameHeader gameState={gameState} playersCount={playersCount} />
-            <GameBoard gameState={gameState} setGameState={setGameState} playersCount={playersCount} />
+            <GameHeader gameState={gameState} playersCount={playersCount} isWinnerState={isWinnerState} />
+            <GameBoard
+                gameState={gameState}
+                setGameState={setGameState}
+                playersCount={playersCount}
+                winnerIndexes={winnerIndexes}
+                isWinnerState={isWinnerState}
+            />
         </div>
     )
 }

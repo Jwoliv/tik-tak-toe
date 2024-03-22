@@ -2,7 +2,7 @@ import { ICONS_PROGRESS } from '../game-board/constants.js'
 import { GameHeaderProfileItem } from '..'
 import { GAME_SYMBOLS } from '../game-board/constants.js'
 
-const GameHeaderProfileBlock = ({ playersCount, currentProgress }) => {
+const GameHeaderProfileBlock = ({ playersCount, currentProgress, isWinnerState }) => {
     const players = [
         {
             username: 'Username1',
@@ -35,7 +35,7 @@ const GameHeaderProfileBlock = ({ playersCount, currentProgress }) => {
             {players.slice(0, playersCount).map((player, index) => (
                 <div key={index}>
                     <GameHeaderProfileItem
-                        isTimerNow={player.symbolName == currentProgress}
+                        isTimerNow={player.symbolName == currentProgress && isWinnerState}
                         player={player}
                         index={index}
                         isRight={index % 2 === 0}

@@ -11,7 +11,7 @@ const WinnerService = (gameState, sequenceSize = 5, fieldSize = 19) => {
                 }
             }
         }
-        return []
+        return [-1,-1,-1,-1,-1]
     }
 
     function compareElements(cells, indexes) {

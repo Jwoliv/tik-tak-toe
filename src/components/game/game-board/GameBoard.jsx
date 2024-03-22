@@ -1,20 +1,19 @@
 import GameHeaderBoard from './GameHeaderBoard'
 import GameBoardSymbol from './GameBoardSymbol'
 import { ICONS_PROGRESS, MOVE_ORDER } from './constants'
-import WinnerService from '../../../service/WinnerService'
 
-const GameBoard = ({ playersCount, gameState, setGameState }) => {
+const GameBoard = ({ playersCount, gameState, setGameState, winnerIndexes, isWinnerState }) => {
     const ORDER = MOVE_ORDER.slice(0, playersCount)
-    const computeWinner = WinnerService(gameState)
     const nextProgress = ICONS_PROGRESS[getNextProgress(gameState.currentProgress)]
-    const winnerIndexes = computeWinner(gameState)
 
     function clickOnCell(index) {
-        setGameState((lastGameState) => ({
-            ...lastGameState,
-            cells: updateCells(lastGameState, index),
-            currentProgress: updateCurrentProgress(lastGameState, index),
-        }))
+        if (isWinnerState) {
+            setGameState((lastGameState) => ({
+                ...lastGameState,
+                cells: updateCells(lastGameState, index),
+                currentProgress: updateCurrentProgress(lastGameState, index),
+            }))
+        }
     }
 
     function updateCells(lastGameState, index) {
@@ -31,8 +30,6 @@ const GameBoard = ({ playersCount, gameState, setGameState }) => {
         let nextIndex = ORDER.indexOf(currentProgress) + 1
         return ORDER[nextIndex] ?? ORDER[0]
     }
-
-    console.log(computeWinner())
 
     return (
         <div>
