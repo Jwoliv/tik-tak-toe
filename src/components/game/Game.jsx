@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { GameHeader, GameBoard } from '.'
 import { GAME_SYMBOLS, ICONS_PROGRESS, MOVE_ORDER } from './game-board/constants'
 import WinnerService from '@/service/WinnerService'
@@ -55,8 +55,13 @@ const Game = () => {
     }
     const computeWinner = WinnerService(gameState)
     const winnerIndexes = computeWinner(gameState)
-    const isNotWinnerState =
-        winnerIndexes.every((item) => item == -1) || gameState.currentProgress !== getNextProgress(gameState.currentProgress)
+    const [isNotWinnerState, setIsNotWinnerState] = useState(winnerIndexes.every((item) => item == -1))
+
+    useEffect(() => {
+        if (gameState.playersTimeOver.length === players.length - 1) {
+            setIsNotWinnerState(false)
+        }
+    }, [gameState.playersTimeOver])
 
     return (
         <div className="pt-6 mx-auto w-max">
@@ -72,7 +77,7 @@ const Game = () => {
                 setGameState={setGameState}
                 playersCount={playersCount}
                 winnerIndexes={winnerIndexes}
-                isNotWinnerState={isNotWinnerState}
+                isNotWinnerState={isNotWinnerState || gameState.playersTimeOver.length !== players.length - 1}
                 players={players}
             />
         </div>

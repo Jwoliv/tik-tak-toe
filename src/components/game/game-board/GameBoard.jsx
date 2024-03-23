@@ -34,7 +34,17 @@ const GameBoard = ({ playersCount, gameState, setGameState, winnerIndexes, isNot
         return ORDER[nextIndex] ?? ORDER[0]
     }
 
-    const winnerUser = typeof players !== 'undefined' ? players.filter((x) => x.symbolName === prevProgress)[0] : {}
+    function determiteWinner() {
+        if (gameState.playersTimeOver.length !== players.length - 1) {
+            return players.filter((player) => player.symbolName === gameState.currentProgress)[0]
+        }
+        if (typeof players !== 'undefined') {
+            return players.filter((x) => x.symbolName === prevProgress)[0]
+        }
+        return {}
+    }
+
+    const winnerUser = determiteWinner()
 
     return (
         <div>
