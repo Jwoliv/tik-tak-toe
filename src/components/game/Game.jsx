@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { GameHeader, GameBoard } from '.'
 import { GAME_SYMBOLS, ICONS_PROGRESS, MOVE_ORDER } from './game-board/constants'
 import WinnerService from '@/service/WinnerService'
+import { UIModal } from '@/uikit'
 
 const Game = () => {
     const [playersCount, setPlayersCount] = useState(4)
@@ -73,6 +74,7 @@ const Game = () => {
                 players={players}
                 onTimeOver={hadlePlayerTimeOver}
             />
+            <UIModal width="md" />
             <GameBoard
                 gameState={gameState}
                 setGameState={setGameState}
