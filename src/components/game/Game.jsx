@@ -61,6 +61,7 @@ const Game = () => {
         if (gameState.playersTimeOver.length === players.length - 1) {
             setIsNotWinnerState(false)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [gameState.playersTimeOver])
 
     return (
