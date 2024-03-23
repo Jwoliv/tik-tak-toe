@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { TimerUtils } from '../../../utils'
 import { ONE_MINUTE_IN_SECONDS } from '@/utils/constant'
 
-const GameHeaderProfileItem = ({ player, isRight, isTimerNow }) => {
+const GameHeaderProfileItem = ({ player, isRight, isTimerNow, onTimeOver }) => {
     const { getMinutes, getSeconds } = TimerUtils()
 
     const [seconds, setSeconds] = useState(ONE_MINUTE_IN_SECONDS)
@@ -23,6 +23,13 @@ const GameHeaderProfileItem = ({ player, isRight, isTimerNow }) => {
             return () => clearInterval(interval)
         }
     }, [isTimerNow])
+
+    useEffect(() => {
+        if (seconds === 0) {
+            onTimeOver(player.symbolName)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [seconds])
 
     const getTimerColor = () => {
         if (isLowThan10Seconds()) return 'text-red-500'

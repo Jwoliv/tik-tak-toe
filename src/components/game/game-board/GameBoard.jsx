@@ -5,19 +5,17 @@ import { ICONS_PROGRESS, MOVE_ORDER } from './constants'
 import { useState } from 'react'
 
 const GameBoard = ({ playersCount, gameState, setGameState, winnerIndexes, isNotWinnerState, players }) => {
-    const ORDER = MOVE_ORDER.slice(0, playersCount)
+    let ORDER = MOVE_ORDER.slice(0, playersCount).filter((symbol) => !gameState.playersTimeOver.includes(symbol))
     const nextProgress = ICONS_PROGRESS[getNextProgress(gameState.currentProgress)]
     const [prevProgress, setPrevProgress] = useState(ICONS_PROGRESS[0])
 
     function clickOnCell(index) {
-        if (isNotWinnerState) {
-            setPrevProgress(gameState.currentProgress)
-            setGameState((lastGameState) => ({
-                ...lastGameState,
-                cells: updateCells(lastGameState, index),
-                currentProgress: updateCurrentProgress(lastGameState, index),
-            }))
-        }
+        setPrevProgress(gameState.currentProgress)
+        setGameState((lastGameState) => ({
+            ...lastGameState,
+            cells: updateCells(lastGameState, index),
+            currentProgress: updateCurrentProgress(lastGameState, index),
+        }))
     }
 
     function updateCells(lastGameState, index) {
@@ -31,11 +29,13 @@ const GameBoard = ({ playersCount, gameState, setGameState, winnerIndexes, isNot
     }
 
     function getNextProgress(currentProgress) {
+        ORDER = MOVE_ORDER.slice(0, playersCount).filter((symbol) => !gameState.playersTimeOver.includes(symbol))
         let nextIndex = ORDER.indexOf(currentProgress) + 1
         return ORDER[nextIndex] ?? ORDER[0]
     }
 
     const winnerUser = typeof players !== 'undefined' ? players.filter((x) => x.symbolName === prevProgress)[0] : {}
+
     return (
         <div>
             <GameHeaderBoard currentProgress={ICONS_PROGRESS[gameState.currentProgress]} nextProgress={nextProgress} />
@@ -49,6 +49,7 @@ const GameBoard = ({ playersCount, gameState, setGameState, winnerIndexes, isNot
                         icon={symbol}
                         onClick={() => clickOnCell(index)}
                         isWinnerPosition={winnerIndexes.includes(index)}
+                        disabled={!isNotWinnerState}
                     ></GameBoardSymbol>
                 ))}
             </div>

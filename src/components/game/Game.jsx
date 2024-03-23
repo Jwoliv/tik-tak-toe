@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import { GameHeader, GameBoard } from '.'
-import { GAME_SYMBOLS, ICONS_PROGRESS } from './game-board/constants'
+import { GAME_SYMBOLS, ICONS_PROGRESS, MOVE_ORDER } from './game-board/constants'
 import WinnerService from '@/service/WinnerService'
 
 const Game = () => {
-    const [playersCount, setPlayersCount] = useState(2)
+    const [playersCount, setPlayersCount] = useState(4)
     const [gameState, setGameState] = useState(() => ({
         cells: new Array(19 * 19).fill(null),
         currentProgress: GAME_SYMBOLS.CROSS,
+        playersTimeOver: [],
     }))
+    const ORDER = MOVE_ORDER.slice(0, playersCount)
 
     const players = [
         {
@@ -37,13 +39,34 @@ const Game = () => {
         },
     ]
 
+    function getNextProgress(currentProgress) {
+        let nextIndex = ORDER.indexOf(currentProgress) + 1
+        return ORDER[nextIndex] ?? ORDER[0]
+    }
+
+    const hadlePlayerTimeOver = (symbol) => {
+        setGameState((lgs) => {
+            return {
+                ...lgs,
+                playersTimeOver: [...lgs.playersTimeOver, symbol],
+                currentProgress: getNextProgress(lgs.currentProgress),
+            }
+        })
+    }
     const computeWinner = WinnerService(gameState)
     const winnerIndexes = computeWinner(gameState)
-    const isNotWinnerState = winnerIndexes.every((item) => item == -1)
+    const isNotWinnerState =
+        winnerIndexes.every((item) => item == -1) || gameState.currentProgress !== getNextProgress(gameState.currentProgress)
 
     return (
         <div className="pt-6 mx-auto w-max">
-            <GameHeader gameState={gameState} playersCount={playersCount} isNotWinnerState={isNotWinnerState} players={players} />
+            <GameHeader
+                gameState={gameState}
+                playersCount={playersCount}
+                isNotWinnerState={isNotWinnerState}
+                players={players}
+                onTimeOver={hadlePlayerTimeOver}
+            />
             <GameBoard
                 gameState={gameState}
                 setGameState={setGameState}
