@@ -1,4 +1,4 @@
-const WinnerService = (gameState, sequenceSize = 5, fieldSize = 19) => {
+const useWinnerDetermine = (gameState, sequenceSize = 5, fieldSize = 19) => {
     const computeWinner = () => {
         const cells = gameState.cells
 
@@ -46,4 +46,4 @@ const WinnerService = (gameState, sequenceSize = 5, fieldSize = 19) => {
     return computeWinner
 }
 
-export default WinnerService
+export default useWinnerDetermine

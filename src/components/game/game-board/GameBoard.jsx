@@ -2,48 +2,10 @@ import GameHeaderBoard from './GameHeaderBoard'
 import GameBoardSymbol from './GameBoardSymbol'
 import GameWinnerBlock from './GameWinnerBlock'
 import { ICONS_PROGRESS, MOVE_ORDER } from './constants'
-import { useState } from 'react'
+import useGameBoard from '@/hook/useGameBoard'
 
 const GameBoard = ({ playersCount, gameState, setGameState, winnerIndexes, isNotWinnerState, players }) => {
-    let ORDER = MOVE_ORDER.slice(0, playersCount).filter((symbol) => !gameState.playersTimeOver.includes(symbol))
-    const nextProgress = ICONS_PROGRESS[getNextProgress(gameState.currentProgress)]
-    const [prevProgress, setPrevProgress] = useState(ICONS_PROGRESS[0])
-
-    function clickOnCell(index) {
-        setPrevProgress(gameState.currentProgress)
-        setGameState((lastGameState) => ({
-            ...lastGameState,
-            cells: updateCells(lastGameState, index),
-            currentProgress: updateCurrentProgress(lastGameState, index),
-        }))
-    }
-
-    function updateCells(lastGameState, index) {
-        return lastGameState.cells[index] === null
-            ? lastGameState.cells.map((cell, idx) => (idx === index ? ICONS_PROGRESS[lastGameState.currentProgress] : cell))
-            : lastGameState.cells
-    }
-
-    function updateCurrentProgress(lastGameState, index) {
-        return lastGameState.cells[index] === null ? getNextProgress(lastGameState.currentProgress) : lastGameState.currentProgress
-    }
-
-    function getNextProgress(currentProgress) {
-        ORDER = MOVE_ORDER.slice(0, playersCount).filter((symbol) => !gameState.playersTimeOver.includes(symbol))
-        let nextIndex = ORDER.indexOf(currentProgress) + 1
-        return ORDER[nextIndex] ?? ORDER[0]
-    }
-
-    function determiteWinner() {
-        if (gameState.playersTimeOver.length !== players.length - 1) {
-            return players.filter((player) => player.symbolName === gameState.currentProgress)[0]
-        }
-        if (typeof players !== 'undefined') {
-            return players.filter((x) => x.symbolName === prevProgress)[0]
-        }
-        return {}
-    }
-
+    const { prevProgress, nextProgress, clickOnCell, determiteWinner } = useGameBoard(gameState, playersCount, players, setGameState)
     const winnerUser = determiteWinner()
 
     return (

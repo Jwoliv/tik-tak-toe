@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { GameHeader, GameBoard } from '.'
 import { GAME_SYMBOLS, ICONS_PROGRESS, MOVE_ORDER } from './game-board/constants'
-import WinnerService from '@/service/WinnerService'
+import WinnerService from '@/hook/useWinnerDetermine'
 import { UIModal } from '@/uikit'
 import GameBoardButton from './game-board/GameBoardButton'
 
