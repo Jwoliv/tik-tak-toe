@@ -3,9 +3,10 @@ import { GameHeader, GameBoard } from '.'
 import { GAME_SYMBOLS, ICONS_PROGRESS, MOVE_ORDER } from './game-board/constants'
 import WinnerService from '@/service/WinnerService'
 import { UIModal } from '@/uikit'
+import GameBoardButton from './game-board/GameBoardButton'
 
 const Game = () => {
-    const [playersCount, setPlayersCount] = useState(4)
+    const [playersCount, setPlayersCount] = useState(2)
     const [gameState, setGameState] = useState(() => ({
         cells: new Array(19 * 19).fill(null),
         currentProgress: GAME_SYMBOLS.CROSS,
@@ -41,11 +42,11 @@ const Game = () => {
     ]
 
     function getNextProgress(currentProgress) {
-        let nextIndex = ORDER.indexOf(currentProgress) + 1
+        let nextIndex = ORDER.filter.indexOf(currentProgress) + 1
         return ORDER[nextIndex] ?? ORDER[0]
     }
 
-    const hadlePlayerTimeOver = (symbol) => {
+    function hadlePlayerTimeOver(symbol) {
         setGameState((lgs) => {
             return {
                 ...lgs,
@@ -54,15 +55,20 @@ const Game = () => {
             }
         })
     }
+
+    function onCloseModalWinnerWindow() {
+        console.log('AAAA')
+    }
+
     const computeWinner = WinnerService(gameState)
     const winnerIndexes = computeWinner(gameState)
-    const [isNotWinnerState, setIsNotWinnerState] = useState(winnerIndexes.every((item) => item == -1))
+    let isNotWinnerState = winnerIndexes.every((item) => item == -1)
 
     useEffect(() => {
-        if (gameState.playersTimeOver.length === players.length - 1) {
-            setIsNotWinnerState(false)
+        if (gameState.playersTimeOver.length === playersCount - 1) {
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+            isNotWinnerState = false
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [gameState.playersTimeOver])
 
     return (
@@ -74,13 +80,29 @@ const Game = () => {
                 players={players}
                 onTimeOver={hadlePlayerTimeOver}
             />
-            <UIModal width="md" />
+            <UIModal width="md" isOpen={!isNotWinnerState} onClose={onCloseModalWinnerWindow}>
+                <UIModal.Header>Game over</UIModal.Header>
+                <UIModal.Body>
+                    <div>
+                        <h4 className="text-sm">
+                            Winner: <span className="text-teal-600">Username1</span>
+                        </h4>
+                    </div>
+                </UIModal.Body>
+                <UIModal.Footer>
+                    <GameBoardButton text="Come back" className="bg-teal-600 text-white hover:bg-teal-500 transition-all" />
+                    <GameBoardButton
+                        text="Play again"
+                        className="bg-white text-teal-600 border-teal-600 border-2 hover:bg-teal-600 transition-all hover:text-white"
+                    />
+                </UIModal.Footer>
+            </UIModal>
             <GameBoard
                 gameState={gameState}
                 setGameState={setGameState}
                 playersCount={playersCount}
                 winnerIndexes={winnerIndexes}
-                isNotWinnerState={isNotWinnerState || gameState.playersTimeOver.length !== players.length - 1}
+                isNotWinnerState={isNotWinnerState || gameState.playersTimeOver.length !== playersCount - 1}
                 players={players}
             />
         </div>
