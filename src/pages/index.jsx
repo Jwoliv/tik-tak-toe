@@ -1,13 +1,6 @@
-import { Footer } from '@/components/footer'
-import { Game } from '@/components/game'
-import { Header } from '@/components/header'
+import HomePage from '@/pages/HomePage'
 
-export default function Home() {
-    return (
-        <div>
-            <Header />
-            <Game />
-            <Footer />
-        </div>
-    )
+const Index = () => {
+    return <HomePage />
 }
+export default Index
