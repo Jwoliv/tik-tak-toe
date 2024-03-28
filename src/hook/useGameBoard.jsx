@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { MOVE_ORDER, ICONS_PROGRESS } from '@/components/game/game-board/constants'
+import { ICONS_PROGRESS, MOVE_ORDER } from '@/components/game/game-board/constants'
 
 const useGameBoard = (gameState, playersCount, players, setGameState) => {
     let ORDER = MOVE_ORDER.slice(0, playersCount).filter((symbol) => !gameState.playersTimeOver.includes(symbol))
@@ -15,7 +15,7 @@ const useGameBoard = (gameState, playersCount, players, setGameState) => {
         }))
     }
 
-    function determiteWinner() {
+    function determineWinner() {
         if (gameState.playersTimeOver.length !== players.length - 1) {
             return players.filter((player) => player.symbolName === gameState.currentProgress)[0]
         }
@@ -45,7 +45,7 @@ const useGameBoard = (gameState, playersCount, players, setGameState) => {
         prevProgress,
         nextProgress,
         clickOnCell,
-        determiteWinner,
+        determineWinner,
     }
 }
 

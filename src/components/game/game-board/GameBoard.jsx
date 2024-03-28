@@ -1,12 +1,12 @@
 import GameHeaderBoard from './GameHeaderBoard'
 import GameBoardSymbol from './GameBoardSymbol'
 import GameWinnerBlock from './GameWinnerBlock'
-import { ICONS_PROGRESS, MOVE_ORDER } from './constants'
+import { ICONS_PROGRESS } from './constants'
 import useGameBoard from '@/hook/useGameBoard'
 
 const GameBoard = ({ playersCount, gameState, setGameState, winnerIndexes, isNotWinnerState, players }) => {
-    const { prevProgress, nextProgress, clickOnCell, determiteWinner } = useGameBoard(gameState, playersCount, players, setGameState)
-    const winnerUser = determiteWinner()
+    const { prevProgress, nextProgress, clickOnCell, determineWinner } = useGameBoard(gameState, playersCount, players, setGameState)
+    const winnerUser = determineWinner()
 
     return (
         <div>
